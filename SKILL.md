@@ -1,6 +1,6 @@
 ---
 name: fact-check
-description: Use when verifying the factual accuracy and timeliness of a piece of writing before publishing — blog posts, articles, essays, social media drafts, reports, newsletters, or any text containing factual claims. Triggers on 事实核查, 事实性核查, 核查一下, 查证, 发布前检查, fact check, fact-check, verify this, check my facts. Flags suspect claims but never rewrites them; the author decides.
+description: Use when verifying the factual accuracy and timeliness of writing before publishing — blog posts, articles, essays, 公众号/social drafts, reports, newsletters, or any text with factual claims (dates, numbers, names, technical terms, "latest/current" statements). Use this skill whenever the user shares a draft and asks you to look it over, or worries about errors / 写错了 / 说得对不对 / 时效性 / 会不会有硬伤 before posting — even if they never say the words "fact check". Triggers on 事实核查, 事实性核查, 核查一下, 查证, 发布前检查, 帮我看看有没有错, fact check, verify this, check my facts. It flags suspect claims with 🚩⚠️🔁💥 and looks up time-sensitive ones online, but never rewrites — the author decides.
 ---
 
 # fact-check
@@ -108,6 +108,39 @@ description: Use when verifying the factual accuracy and timeliness of a piece o
 ```
 
 最后一行永远是：**“以上只是标记，改不改你定。”**
+
+---
+
+## 一个完整示例
+
+**输入：**
+
+> 图灵在 2015 年提出了著名的图灵测试。最近 OpenAI 发布的新模型参数量高达 10 万亿，所以它肯定比所有开源模型都强。
+
+**输出：**
+
+```
+## 核查报告（共 3 处标记）
+
+【🚩 事实错误】
+- 「图灵在 2015 年提出了图灵测试」
+  疑问：图灵测试出自图灵 1950 年的论文《Computing Machinery and Intelligence》，
+  不是 2015 年。建议核实年份。
+
+【🌐 联网查证】
+- 「OpenAI 最近发布的新模型参数量高达 10 万亿」
+  结论：⚠️ 时效性 + 具体数字——需联网核实发布情况，且厂商通常不公开确切参数，
+  这个“10 万亿”很可能是传闻。
+  依据：[待检索 OpenAI 官方公告]
+
+【⚠️ 逻辑跳跃】
+- 「参数量大，所以肯定比所有开源模型都强」
+  疑问：参数量大 ≠ 性能强，中间缺了 benchmark 这一步。这是把“规模”当成了“能力”。
+
+以上只是标记，改不改你定。
+```
+
+注意：示例里**主观和修辞被放过了**（如果原文有“我觉得”“快得飞起”），火力只集中在可证伪、会误导读者的三处。
 
 ---
 
