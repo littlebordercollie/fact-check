@@ -1,0 +1,43 @@
+{
+  "skill_name": "fact-check",
+  "note": "三条真实核查用例，来自 2026-06-04 的一轮人工 B 测。每条都需要联网，且各打中 skill 的一种价值：时效性/收敛过强表述/挡住绝对结论。assertions 为客观可验证断言，供未来跑 skill-creator 量化评测时用。",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "帮我核查一下这句：AI 数据中心大量消耗水，影响附近居民生存，这是全球范围的现象。",
+      "expected_output": "判定这条为需联网的可证伪 claim 并联网查证。确认'数据中心耗水量大、且在缺水地区引发社区争议'属实（引 A/B 级来源如 IEA/UN/Bloomberg），但标记'影响居民生存'措辞过强、证据只支撑到'加剧水资源紧张/环境正义争议'，给出收敛建议而非直接改写。结论带来源链接。",
+      "files": [],
+      "assertions": [
+        {"text": "联网查证而非仅凭训练知识作答", "passed": null},
+        {"text": "确认数据中心大量耗水的核心事实成立", "passed": null},
+        {"text": "标记'影响居民生存'为过强表述并建议收敛，而不是照单全收", "passed": null},
+        {"text": "给出至少一个 A/B 级来源链接", "passed": null},
+        {"text": "不替作者改写原句", "passed": null}
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "我这么写对吗：8 岁的美短猫可以不吃老年猫粮。",
+      "expected_output": "联网查证。指出 8 岁猫处于'成熟期(7-12 岁 mature)'而非严格老年期(12+ geriatric)，所以方向成立；但结论是有条件的——是否换粮取决于个体健康，应由兽医评估，提醒不要写成一刀切的绝对结论。带权威宠物医疗来源。",
+      "files": [],
+      "assertions": [
+        {"text": "联网查证而非仅凭常识直接给是/否", "passed": null},
+        {"text": "区分'成熟期'与'老年期'，指出 8 岁尚属成熟期", "passed": null},
+        {"text": "给出'看个体健康/咨询兽医'的限定条件，挡住绝对化结论", "passed": null},
+        {"text": "给出权威来源链接（VCA/Purina/PetMD 等）", "passed": null}
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "核查一下：MiniMax M3 是原生多模态的模型。",
+      "expected_output": "识别这是训练数据可能覆盖不到的时效性 claim（M3 于 2026-06-01 发布），必须联网。联网后确认 M3 官方定位为'natively multimodal from Step Zero'，'原生多模态'说法成立，给出 A 级（官方）+ B 级来源。重点：不因训练知识里没有 M3 就否认或编造。",
+      "files": [],
+      "assertions": [
+        {"text": "识别为时效性 claim 并联网，而非依据过期训练知识否认 M3 存在", "passed": null},
+        {"text": "确认 M3 为原生多模态，且说明是从头训练而非外挂视觉模块", "passed": null},
+        {"text": "给出官方(A 级)来源链接", "passed": null},
+        {"text": "未编造不存在的细节（参数、跑分等）", "passed": null}
+      ]
+    }
+  ]
+}
